@@ -1,1 +1,279 @@
-[{"id":"e63cd551a825822e","type":"tab","label":"Flow 5","disabled":false,"info":"","env":[]},{"id":"97e35913702da3f9","type":"tab","label":"Flow 1","disabled":false,"info":"","env":[]},{"id":"1d81d95049615fd8","type":"telegram bot","botname":"flowstestmariiabot","usernames":"flowstestmariiabot","chatids":"217498371","baseapiurl":"","updatemode":"polling","pollinterval":"300","usesocks":false,"sockshost":"","socksprotocol":"socks5","socksport":"6667","socksusername":"anonymous","sockspassword":"","bothost":"","botpath":"","localbotport":"8443","publicbotport":"8443","privatekey":"","certificate":"","useselfsignedcertificate":false,"sslterminated":false,"verboselogging":false},{"id":"da9cf1b0885ccb7a","type":"git-nodes-config","name":"","git":"git@github.com:mariia-mandrik/testNodeRedBot.git"},{"id":"9ed269ce6f476258","type":"telegram command","z":"e63cd551a825822e","name":"","command":"/start","description":"","registercommand":false,"language":"","scope":"default","bot":"1d81d95049615fd8","strict":false,"hasresponse":true,"useregex":false,"removeregexcommand":false,"outputs":2,"x":90,"y":280,"wires":[["bbe1d4c340d86ec4"],["496a033bcb0d9464"]]},{"id":"bbe1d4c340d86ec4","type":"function","z":"e63cd551a825822e","name":"set keyvoard","func":"\nvar opts = {\n    reply_to_message_id: msg.payload.messageId,\n    reply_markup: JSON.stringify({\n        keyboard: [\n            ['send'],\n           ],\n        'resize_keyboard': true,\n        'one_time_keyboard': true\n    })\n};\n\nmsg.payload.content = 'Try to send request?';\nmsg.payload.options = opts;\n\nreturn [msg];\n","outputs":1,"noerr":0,"initialize":"","finalize":"","libs":[],"x":310,"y":280,"wires":[["9e138687.ee43a8"]]},{"id":"a42b2347.05b25","type":"catch","z":"e63cd551a825822e","name":"","scope":[],"uncaught":false,"x":130,"y":660,"wires":[["bd03654d.09ecb8"]]},{"id":"bd03654d.09ecb8","type":"debug","z":"e63cd551a825822e","name":"Debug","active":true,"console":"false","complete":"payload","x":290,"y":660,"wires":[]},{"id":"496a033bcb0d9464","type":"function","z":"e63cd551a825822e","name":"create response","func":"var opts\nif (msg.payload.content === 'send')\n{\n     opts = {\n        reply_to_message_id: msg.payload.messageId,\n        reply_markup: JSON.stringify({\n            keyboard: [\n                [ \"/tell\"],['/wait']\n            ],\n            'resize_keyboard': true,\n            'one_time_keyboard': true\n        })\n    };\n\n    msg.payload.content = 'Sorry, some problem with VISA api. But you can tell me something about yourself)';\n    msg.payload.options = opts;\n\n    return [msg];   \n}\nelse\n{\n    msg.payload.content = 'Sorry, error';\n    return [msg];   \n}\n\n","outputs":"2","noerr":0,"initialize":"","finalize":"","libs":[],"x":320,"y":340,"wires":[["9e138687.ee43a8"],[]]},{"id":"9e138687.ee43a8","type":"telegram sender","z":"e63cd551a825822e","name":"send response","bot":"1d81d95049615fd8","haserroroutput":false,"outputs":1,"x":580,"y":280,"wires":[[]]},{"id":"a2086f05550bd054","type":"telegram command","z":"e63cd551a825822e","name":"","command":"/tell","description":"","registercommand":false,"language":"","scope":"default","bot":"1d81d95049615fd8","strict":false,"hasresponse":true,"useregex":false,"removeregexcommand":false,"outputs":2,"x":90,"y":440,"wires":[["67697f1ea96a8a19"],["e4791610755a8176"]]},{"id":"67697f1ea96a8a19","type":"function","z":"e63cd551a825822e","name":"set question","func":"msg.payload.content = 'whats your name?';\nreturn [msg];   ","outputs":1,"noerr":0,"initialize":"","finalize":"","libs":[],"x":330,"y":440,"wires":[["9e138687.ee43a8"]]},{"id":"8f33984812bff83f","type":"function","z":"e63cd551a825822e","name":"send sticker","func":"msg.payload.type = \"sticker\";\nmsg.payload.content = 'CAACAgIAAxkBAAEGjQ1jgX4jmXlvTgbvjeO6RtCbxBHg_AACIgADKA9qFBEx-ROlx0RXKwQ';\nreturn msg;","outputs":1,"noerr":0,"initialize":"","finalize":"","libs":[],"x":350,"y":540,"wires":[["9e138687.ee43a8"]]},{"id":"4a0b35c4f37cb35c","type":"telegram command","z":"e63cd551a825822e","name":"","command":"/wait","description":"","registercommand":false,"language":"","scope":"default","bot":"1d81d95049615fd8","strict":false,"hasresponse":false,"useregex":false,"removeregexcommand":false,"outputs":1,"x":90,"y":540,"wires":[["8f33984812bff83f"]]},{"id":"e4791610755a8176","type":"function","z":"e63cd551a825822e","name":"answer","func":"msg.payload.content = 'Hello ' + msg.payload.content;\nreturn [msg];   ","outputs":1,"noerr":0,"initialize":"","finalize":"","libs":[],"x":320,"y":480,"wires":[["9e138687.ee43a8"]]},{"id":"1d10fe886480a462","type":"git-nodes","z":"e63cd551a825822e","label":"","branch":"master","sourcebranch":"master","gitadd":"settings.js,package.json,.config.json,lib","gitrmcache":"nodes/*/x,nodes/*/y,nodes/*/z","debugging":true,"git":"da9cf1b0885ccb7a","x":180,"y":1300,"wires":[]}]
+[
+    {
+        "id": "e63cd551a825822e",
+        "type": "tab",
+        "label": "bot",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "97e35913702da3f9",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "1d81d95049615fd8",
+        "type": "telegram bot",
+        "botname": "flowstestmariiabot",
+        "usernames": "flowstestmariiabot",
+        "chatids": "217498371",
+        "baseapiurl": "",
+        "updatemode": "polling",
+        "pollinterval": "300",
+        "usesocks": false,
+        "sockshost": "",
+        "socksprotocol": "socks5",
+        "socksport": "6667",
+        "socksusername": "anonymous",
+        "sockspassword": "",
+        "bothost": "",
+        "botpath": "",
+        "localbotport": "8443",
+        "publicbotport": "8443",
+        "privatekey": "",
+        "certificate": "",
+        "useselfsignedcertificate": false,
+        "sslterminated": false,
+        "verboselogging": false
+    },
+    {
+        "id": "da9cf1b0885ccb7a",
+        "type": "git-nodes-config",
+        "name": "",
+        "git": "git@github.com:mariia-mandrik/testNodeRedBot.git"
+    },
+    {
+        "id": "9ed269ce6f476258",
+        "type": "telegram command",
+        "z": "e63cd551a825822e",
+        "name": "",
+        "command": "/start",
+        "description": "",
+        "registercommand": false,
+        "language": "",
+        "scope": "default",
+        "bot": "1d81d95049615fd8",
+        "strict": false,
+        "hasresponse": true,
+        "useregex": false,
+        "removeregexcommand": false,
+        "outputs": 2,
+        "x": 90,
+        "y": 280,
+        "wires": [
+            [
+                "bbe1d4c340d86ec4"
+            ],
+            [
+                "496a033bcb0d9464"
+            ]
+        ]
+    },
+    {
+        "id": "bbe1d4c340d86ec4",
+        "type": "function",
+        "z": "e63cd551a825822e",
+        "name": "set keyvoard",
+        "func": "\nvar opts = {\n    reply_to_message_id: msg.payload.messageId,\n    reply_markup: JSON.stringify({\n        keyboard: [\n            ['send'],\n           ],\n        'resize_keyboard': true,\n        'one_time_keyboard': true\n    })\n};\n\nmsg.payload.content = 'Try to send request?';\nmsg.payload.options = opts;\n\nreturn [msg];\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 310,
+        "y": 280,
+        "wires": [
+            [
+                "9e138687.ee43a8"
+            ]
+        ]
+    },
+    {
+        "id": "a42b2347.05b25",
+        "type": "catch",
+        "z": "e63cd551a825822e",
+        "name": "",
+        "scope": [],
+        "uncaught": false,
+        "x": 130,
+        "y": 660,
+        "wires": [
+            [
+                "bd03654d.09ecb8"
+            ]
+        ]
+    },
+    {
+        "id": "bd03654d.09ecb8",
+        "type": "debug",
+        "z": "e63cd551a825822e",
+        "name": "Debug",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 290,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "496a033bcb0d9464",
+        "type": "function",
+        "z": "e63cd551a825822e",
+        "name": "create response",
+        "func": "var opts\nif (msg.payload.content === 'send')\n{\n     opts = {\n        reply_to_message_id: msg.payload.messageId,\n        reply_markup: JSON.stringify({\n            keyboard: [\n                [ \"/tell\"],['/wait']\n            ],\n            'resize_keyboard': true,\n            'one_time_keyboard': true\n        })\n    };\n\n    msg.payload.content = 'Sorry, some problem with VISA api. But you can tell me something about yourself)';\n    msg.payload.options = opts;\n\n    return [msg];   \n}\nelse\n{\n    msg.payload.content = 'Sorry, error';\n    return [msg];   \n}\n\n",
+        "outputs": "2",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 340,
+        "wires": [
+            [
+                "9e138687.ee43a8"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "9e138687.ee43a8",
+        "type": "telegram sender",
+        "z": "e63cd551a825822e",
+        "name": "send response",
+        "bot": "1d81d95049615fd8",
+        "haserroroutput": false,
+        "outputs": 1,
+        "x": 580,
+        "y": 280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a2086f05550bd054",
+        "type": "telegram command",
+        "z": "e63cd551a825822e",
+        "name": "",
+        "command": "/tell",
+        "description": "",
+        "registercommand": false,
+        "language": "",
+        "scope": "default",
+        "bot": "1d81d95049615fd8",
+        "strict": false,
+        "hasresponse": true,
+        "useregex": false,
+        "removeregexcommand": false,
+        "outputs": 2,
+        "x": 90,
+        "y": 440,
+        "wires": [
+            [
+                "67697f1ea96a8a19"
+            ],
+            [
+                "e4791610755a8176"
+            ]
+        ]
+    },
+    {
+        "id": "67697f1ea96a8a19",
+        "type": "function",
+        "z": "e63cd551a825822e",
+        "name": "set question",
+        "func": "msg.payload.content = 'whats your name?';\nreturn [msg];   ",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 330,
+        "y": 440,
+        "wires": [
+            [
+                "9e138687.ee43a8"
+            ]
+        ]
+    },
+    {
+        "id": "8f33984812bff83f",
+        "type": "function",
+        "z": "e63cd551a825822e",
+        "name": "send sticker",
+        "func": "msg.payload.type = \"sticker\";\nmsg.payload.content = 'CAACAgIAAxkBAAEGjQ1jgX4jmXlvTgbvjeO6RtCbxBHg_AACIgADKA9qFBEx-ROlx0RXKwQ';\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 540,
+        "wires": [
+            [
+                "9e138687.ee43a8"
+            ]
+        ]
+    },
+    {
+        "id": "4a0b35c4f37cb35c",
+        "type": "telegram command",
+        "z": "e63cd551a825822e",
+        "name": "",
+        "command": "/wait",
+        "description": "",
+        "registercommand": false,
+        "language": "",
+        "scope": "default",
+        "bot": "1d81d95049615fd8",
+        "strict": false,
+        "hasresponse": false,
+        "useregex": false,
+        "removeregexcommand": false,
+        "outputs": 1,
+        "x": 90,
+        "y": 540,
+        "wires": [
+            [
+                "8f33984812bff83f"
+            ]
+        ]
+    },
+    {
+        "id": "e4791610755a8176",
+        "type": "function",
+        "z": "e63cd551a825822e",
+        "name": "answer",
+        "func": "msg.payload.content = 'Hello ' + msg.payload.content;\nreturn [msg];   ",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 480,
+        "wires": [
+            [
+                "9e138687.ee43a8"
+            ]
+        ]
+    },
+    {
+        "id": "1d10fe886480a462",
+        "type": "git-nodes",
+        "z": "e63cd551a825822e",
+        "label": "",
+        "branch": "master",
+        "sourcebranch": "master",
+        "gitadd": "settings.js,package.json,.config.json,lib",
+        "gitrmcache": "nodes/*/x,nodes/*/y,nodes/*/z",
+        "debugging": true,
+        "git": "da9cf1b0885ccb7a",
+        "x": 180,
+        "y": 1300,
+        "wires": []
+    }
+]
